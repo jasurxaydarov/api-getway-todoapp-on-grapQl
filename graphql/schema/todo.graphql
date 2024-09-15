@@ -1,0 +1,78 @@
+scalar UUID
+scalar Time
+
+type Todo {
+  id: UUID!
+  task: String!
+  is_completed: Boolean!
+  completed_at: Time
+  created_at: Time!
+  deleted_at: Time
+  updated_at: Time!
+  user: User!
+}
+
+type User {
+  user_id: UUID!
+  username: String!
+  email: String!
+  created_at: Time!
+  updated_at: Time!
+  todo: [Todo!]!
+}
+
+type Query {
+  todos: [Todo!]!
+  users: [User!]!
+}
+
+input NewTodo {
+  task: String!
+}
+
+input UpdateTodo {
+  task: String!
+  id: UUID!
+  is_completed: Boolean!
+  completed_at: Time
+  updated_at: Time!
+}
+
+input NewUser {
+  username: String!
+  email: String!
+}
+
+input UpdateUser {
+  user_id: UUID!
+  username: String!
+  email: String!
+  updated_at: Time!
+}
+
+input GetByID {
+  id: UUID!
+}
+
+input Gets {
+  limit: Int!
+  offset: Int!
+}
+
+input DeleteById {
+  id: UUID!
+}
+
+type Mutation {
+  createTodo(input: NewTodo!): Todo!
+  getTodo(input: GetByID!): Todo!
+  getTodos(input: Gets!): [Todo!]!
+  updateTodo(input: UpdateTodo!): Todo!
+  deleteTodo(input: DeleteById!): String!
+
+  createUser(input: NewUser!): String!
+  getUser(input: GetByID!): User!
+  getUsers(input: Gets!): [User!]!
+  updateUser(input: UpdateUser!): String!
+  deleteUser(input: DeleteById!): String!
+}
