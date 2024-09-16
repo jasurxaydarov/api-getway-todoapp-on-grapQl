@@ -14,7 +14,6 @@ import (
 
 // CreateTodo is the resolver for the createTodo field.
 func (r *mutationResolver) CreateTodo(ctx context.Context, input models.NewTodo) (*models.Todo, error) {
-
 	resp, err := r.Storage.GetTodoRepo().CreateTodo(ctx, &input)
 
 	if err != nil {
@@ -24,12 +23,10 @@ func (r *mutationResolver) CreateTodo(ctx context.Context, input models.NewTodo)
 	}
 
 	return resp, nil
-
 }
 
 // GetTodo is the resolver for the getTodo field.
 func (r *mutationResolver) GetTodo(ctx context.Context, input models.GetByID) (*models.Todo, error) {
-
 	resp, err := r.Storage.GetTodoRepo().GetTodo(ctx, &input)
 
 	if err != nil {
@@ -43,17 +40,42 @@ func (r *mutationResolver) GetTodo(ctx context.Context, input models.GetByID) (*
 
 // GetTodos is the resolver for the getTodos field.
 func (r *mutationResolver) GetTodos(ctx context.Context, input models.Gets) ([]*models.Todo, error) {
-	panic(fmt.Errorf("not implemented: GetTodos - getTodos"))
+	resp, err := r.Storage.GetTodoRepo().GetTodos(context.Background(), &input)
+
+	if err != nil {
+
+		fmt.Println(err)
+		return nil, err
+	}
+
+	return resp, nil
 }
 
 // UpdateTodo is the resolver for the updateTodo field.
 func (r *mutationResolver) UpdateTodo(ctx context.Context, input models.UpdateTodo) (*models.Todo, error) {
-	panic(fmt.Errorf("not implemented: UpdateTodo - updateTodo"))
+	
+	resp, err := r.Storage.GetTodoRepo().UpdateTodo(context.Background(), &input)
+
+	if err != nil {
+
+		fmt.Println(err)
+		return nil, err
+	}
+
+	return resp, nil
 }
 
 // DeleteTodo is the resolver for the deleteTodo field.
 func (r *mutationResolver) DeleteTodo(ctx context.Context, input models.DeleteByID) (string, error) {
-	panic(fmt.Errorf("not implemented: DeleteTodo - deleteTodo"))
+	resp, err := r.Storage.GetTodoRepo().DeleteTodo(context.Background(), &input)
+
+	if err != nil {
+
+		fmt.Println(err)
+		return "", err
+	}
+
+	return resp, nil
 }
 
 // CreateUser is the resolver for the createUser field.
